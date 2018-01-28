@@ -7,11 +7,10 @@ package model;
  */
 public class Compte {
 	
-	private int numCpte;
+	private String numCpte;
 	private String prenom;
 	private TypeCompte type;
 	private Double solde;
-	private static int compteur = 0;
 	
 	/**
 	 * Default constructor
@@ -27,14 +26,15 @@ public class Compte {
 	 * @param type
 	 * @param solde
 	 */
-	public Compte(String prenom, TypeCompte type, Double solde) {
-		this.prenom = prenom;
+	public Compte(Client client, TypeCompte type, Double solde) {
+		this.prenom = client.getPrenom();
 		this.type = type;
 		this.solde = solde;
-		this.numCpte = compteur;
-		compteur++;		
+		this.numCpte = client.getIdClient();
+;		
 	}
-	public int getNumCpte() {
+
+	public String getNumCpte() {
 		return numCpte;
 	}	
 	public String getPrenom() {

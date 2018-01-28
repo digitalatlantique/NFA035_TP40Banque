@@ -13,7 +13,6 @@ import java.util.Scanner;
 import java.util.Vector;
 
 import controller.ControllerPrincipale;
-import controller.SaisieUtilisateur;
 import model.Client;
 import model.Compte;
 import model.Genre;
@@ -99,11 +98,11 @@ public class DemoApli {
 			if(tmp[3].equals("homme")){
 				
 				client = gest.createClient(tmp[0], Integer.parseInt(tmp[2]), Genre.homme);
-				creerCompteAleatoire(client, genererNbrInt(0, 3));
+				creerCompteAleatoire(client, genererNbrInt(0, 4));
 			}
 			if(tmp[3].equals("femme")){
 				client = gest.createClient(tmp[0], Integer.parseInt(tmp[2]), Genre.femme);
-				creerCompteAleatoire(client, genererNbrInt(0, 3));
+				creerCompteAleatoire(client, genererNbrInt(0, 4));
 			}
 			// A break to differentiate the customer's identifications
 			try {
@@ -148,7 +147,8 @@ public class DemoApli {
 	 * @return an identification
 	 */
 	public static String genererIdClient(String prenom) {
-		String str;
+		String str1 = "";
+		String str2;
 		String lettre1 = "";
 		String lettre2 = "";
 		String seq = "[aeuioyAEUIOY]";
@@ -156,8 +156,8 @@ public class DemoApli {
 		
 		// Get the six last figures of time stamp 
 		long ts = System.currentTimeMillis();
-		str = String.valueOf(ts);
-		str = str.substring(7);	
+		str2 = String.valueOf(ts);
+		str2 = str2.substring(7);	
 		
 		// Get the first two vowels 
 		for(int i=0; i<prenom.length(); i++) {			
@@ -171,9 +171,9 @@ public class DemoApli {
 				break;
 			}			
 		}		
-		str += lettre2.toUpperCase() + lettre1.toUpperCase();
+		str1 += lettre1.toLowerCase() + lettre2.toLowerCase() + str2;
 		
-		return str;
+		return str1;
 	}
 	/**
 	 * Generate an integer

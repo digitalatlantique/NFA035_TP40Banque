@@ -64,7 +64,7 @@ public class Client extends Personne {
      * @param type is the kind of account
      */    
     public void creerCompte(TypeCompte type, Double solde) {
-    	Compte cpt = new Compte(this.getPrenom(), type, solde);
+    	Compte cpt = new Compte(this, type, solde);
     	mesComptes.add(cpt);    	
     }
     
@@ -167,12 +167,7 @@ public class Client extends Personne {
 	public void setGestionnaire(Gestionnaire gestionnaire) {
 		this.gestionnaire = gestionnaire;
 	}
-	public Double getCagnote() {
-		return cagnote;
-	}
-	public void setCagnote(Double cagnote) {
-		this.cagnote = cagnote;
-	}
+
 	public Double getTresorerie() {
 		this.consulterTresorerie();
 		return tresorerie;
