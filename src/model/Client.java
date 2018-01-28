@@ -30,42 +30,38 @@ public class Client extends Personne {
     }
 
     /**
-     * 
+     * This is an identification of the customer 
      */
     private String idClient;
 
     /**
-     * 
+     * This is the age of the customer
      */
     private Integer age;
 
     /**
-     * 
+     * this is the gender of the customer
      */
     private Genre genre;
 
     /**
-     * 
+     * this is the administrator of the customer
      */
     private Gestionnaire gestionnaire;
 
     /**
-     * 
-     */
-    private Double cagnote;
-
-    /**
-     * 
+     * this is the balance of the customer
      */
     private Double tresorerie;
 
     /**
-     * Pour stoker tous les comptes du client
+     * To store all the accounts of the customers
      */
     private ArrayList<Compte> mesComptes;
     
     /**
-     * Pour créer un compte client
+     * To create an account
+     * @param type is the kind of account
      */    
     public void creerCompte(TypeCompte type, Double solde) {
     	Compte cpt = new Compte(this.getPrenom(), type, solde);
@@ -73,15 +69,14 @@ public class Client extends Personne {
     }
     
     /**
-     * Retourne la liste des comptes client
-     * @param 
+     * Return the list of all the accounts
      */
     public ArrayList<Compte> listerCompte() {    	
         return this.mesComptes;
     }
     
     /**
-     * Retourne la liste d'un type de compte client
+     * Return a kind of account
      * @param TypeCompte
      */
     public ArrayList<Compte> listerCompte(TypeCompte type) {
@@ -118,7 +113,8 @@ public class Client extends Personne {
     }
     
     /**
-     * Pour connaitre le solde cumulé de tout les comptes
+     * To check the cash 
+     * @return the cash
      */
     public Double consulterTresorerie() {
     	// TODO a comment
@@ -132,7 +128,8 @@ public class Client extends Personne {
     }
     
     /**
-     * 
+     * This object (which is already a string!) is itself returned
+     * @return the string itself.
      */
 	public String toString() {
 		this.consulterTresorerie();

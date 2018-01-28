@@ -8,12 +8,20 @@ import view.VuePrincipale;
 
 public class ControllerSaisiePrenom extends ControllerPrincipale implements ActionListener {
 	
+	/**
+	 * Constructor
+	 * @param vue
+	 * @param gest
+	 */
 	public ControllerSaisiePrenom(VuePrincipale vue, Gestionnaire gest) {
 		
 		super(vue, gest);
 		
 	}
 	
+	/**
+	 * this method displays all the accounts of the selected customer
+	 */
 	public void actionPerformed(ActionEvent event) {
 		
 		String saisie = this.vue.getField().getText();

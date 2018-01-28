@@ -15,7 +15,7 @@ import model.Gestionnaire;
 import view.VuePrincipale;
 
 /**
- * This main controller show the different options and get the choice of user to display his choice 
+ * This main controller show the different options and get the choice of the user to display it 
  * @author Workstation
  * @version 1.4 IHM and java doc
  * @since 1.1
@@ -26,15 +26,19 @@ public class ControllerPrincipale implements ActionListener {
 	protected VuePrincipale vue;
 	protected Gestionnaire gest;
 	/**
-	 * Create the controller with view and administrator object
-	 * @param vue it's view object
-	 * @param gest it's administrator object
+	 * Constructor
+	 * Create the controller with the view and the administrator object
+	 * @param vue it's a view object
+	 * @param gest it's an administrator object
 	 */
 	public ControllerPrincipale(VuePrincipale vue, Gestionnaire gest) {
 		this.vue = vue;
 		this.gest = gest;
 	}	
-	
+	/**
+	 * the method controls the type and displays the choice of the user
+	 * @param event
+	 */
 	public void actionPerformed(ActionEvent event){
 		
 		String saisie = vue.getField().getText();
@@ -74,6 +78,11 @@ public class ControllerPrincipale implements ActionListener {
 		}
 		
 	}
+	/**
+	 * To check if the type is an integer
+	 * @param var
+	 * @return
+	 */
     public boolean CheckInt(String var) {			
     	 
 		Pattern pattern = Pattern.compile("[0-4]");
@@ -83,7 +92,7 @@ public class ControllerPrincipale implements ActionListener {
     }
 
     /**
-     * Pour testé la saisie de caractère non accentué
+     * To check if the type is a character string
      */
     public boolean CheckString(String var) {
 		Pattern pattern = Pattern.compile("[a-zA-Z]+");

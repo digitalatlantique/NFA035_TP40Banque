@@ -1,5 +1,10 @@
 package model;
 
+/**
+ * This is an account of the customer. The account is made of an identification, a first name, a type and the balance 
+ * @author Win7
+ *
+ */
 public class Compte {
 	
 	private int numCpte;
@@ -8,10 +13,20 @@ public class Compte {
 	private Double solde;
 	private static int compteur = 0;
 	
+	/**
+	 * Default constructor
+	 */
 	public Compte() {
 		
 	}
-
+	
+	/**
+	 * Constructor
+	 * Initialize with the first name, the kind of account, the initial balance
+	 * @param prenom
+	 * @param type
+	 * @param solde
+	 */
 	public Compte(String prenom, TypeCompte type, Double solde) {
 		this.prenom = prenom;
 		this.type = type;

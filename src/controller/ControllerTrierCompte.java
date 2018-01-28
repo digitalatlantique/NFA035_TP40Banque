@@ -10,11 +10,19 @@ import view.VuePrincipale;
 
 public class ControllerTrierCompte extends ControllerPrincipale implements ActionListener{
 	
+	/**
+	 * Constructor
+	 * @param vue
+	 * @param gest
+	 */
 	public ControllerTrierCompte(VuePrincipale vue, Gestionnaire gest) {
 		super(vue, gest);
 
 	}
 	
+	/**
+	 * This method displays the accounts sorted by first name or by balance
+	 */
 	public void actionPerformed(ActionEvent e) {
 		
 		String itemSource = e.getActionCommand();
