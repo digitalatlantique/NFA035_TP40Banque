@@ -41,42 +41,24 @@ public class ControllerPrincipale implements ActionListener {
 	 */
 	public void actionPerformed(ActionEvent event){
 		
-		String saisie = vue.getField().getText();
+		String itemSource = event.getActionCommand();
 		
-		if(CheckInt(saisie)) {	
-			vue.afficherLabel();
-			int choix = Integer.parseInt(saisie);
-			
-			switch(choix) {
-			
-				case 0 : {
-					System.exit(0);
-					break;
-				}
-				case 1 : {
-					vue.afficherListeCompte(gest.listerCompte());
-					break;
-				}
-				case 2 : {
-
-					vue.afficherListeClient(gest.listerClient());
-					break;
-				}
-				case 3 : {
-					vue.afficherSaisiePrenom();
-					ControllerSaisiePrenom csp = new ControllerSaisiePrenom(vue, gest);
-					vue.getBouton2().addActionListener(csp);
-					break;
-				}
-				case 4 : {
-					vue.afficherPortefeuilleGestionnaire(gest.listerCompte(), gest);
-				}
-			}			
-		}
-		else {
-			vue.afficherErreurMenu();
-		}
+		switch(itemSource) {
 		
+			case "quitter" : {
+				System.exit(0);
+				break;
+			}
+			case "listeClients" : {
+				vue.afficherListeClient(gest.listerClient());
+				break;
+			}
+			case "porteFeuille" : {
+				vue.afficherPortefeuilleGestionnaire(gest.listerCompte(), gest);
+				break;
+			}
+		}
+	
 	}
 	/**
 	 * To check if the type is an integer

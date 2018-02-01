@@ -23,17 +23,20 @@ public class ControllerTrierCompte extends ControllerPrincipale implements Actio
 	/**
 	 * This method displays the accounts sorted by first name or by balance
 	 */
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent event) {
 		
-		String itemSource = e.getActionCommand();
+		String itemSource = event.getActionCommand();
 		
-		if(itemSource == "Prénom") {
-			vue.afficherListeCompte(gest.trierComptePrenom());
+		switch (itemSource) {
+			
+			case "prenom" : {
+				vue.afficherListeCompte(gest.trierComptePrenom());
+				break;
+			}
+			case "solde" : {
+				vue.afficherListeCompte(gest.trierCompteSolde());
+				break;
+			}
 		}
-		else if(itemSource == "Solde") {
-			vue.afficherListeCompte(gest.trierCompteSolde());
-		}
-		
 	}
-
 }

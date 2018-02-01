@@ -45,7 +45,7 @@ public class VuePrincipale extends JFrame{
 	private JPanel panLogo = null;
 	private JPanel panG = null;
 	private PanneauCentral panC = null;
-	private JPanel panMenu = null;
+	private PanneauAffichage panAffichage = null;
 	private JPanel panSaisie = null;
 	
 	private JMenuBar menuBar = null;
@@ -90,17 +90,23 @@ public class VuePrincipale extends JFrame{
 		// Panneau logo
 		panLogo = new PanneauLogo();		
 		// Panneau menu latérale
-		panMenu = new PanneauMenu(font1, font2);
-		// Panneau saisie		
+		panAffichage = new PanneauAffichage(font1, font2);
+		/*Panneau saisie		
 		panSaisie = new PanneauSaisie(this, this.font1, this.font2);
-
+		panG.add(panSaisie, BorderLayout.SOUTH);
+		
+		// Ecoute du bouton
+		this.getBouton().addActionListener(cp);
+		
+		 */
+		
 		// Panneau de gauche
 		panG.setLayout(new BorderLayout());
 		panG.setPreferredSize(new Dimension(180, 480));
 		panG.setOpaque(false);
 		panG.add(panLogo, BorderLayout.NORTH);
-		panG.add(panMenu, BorderLayout.CENTER);
-		panG.add(panSaisie, BorderLayout.SOUTH);
+		panG.add(panAffichage, BorderLayout.CENTER);
+		
 
 		panPrincipal.add(panG);
 		panPrincipal.add(panC);
@@ -113,10 +119,7 @@ public class VuePrincipale extends JFrame{
 		
 		// Instance du controller
 		ControllerPrincipale cp = new ControllerPrincipale(this, gest);
-		
-		// Ecoute du bouton
-		this.getBouton().addActionListener(cp);
-		
+
 	}	
 
 
@@ -144,7 +147,8 @@ public class VuePrincipale extends JFrame{
 	}
 	public void afficherListeCompte(ArrayList<Compte> liste) {
 
-		this.field.setText("");
+		panAffichage.changerTitre("Liste");
+		panAffichage.changerArea("\n\nListe des comptes clients");
 		
 		ModeleTableCompte modele = new ModeleTableCompte(liste);
 	
@@ -158,7 +162,7 @@ public class VuePrincipale extends JFrame{
 	}
 	public void afficherListeClient(Vector<Client> liste) {
 
-		this.field.setText("");
+
 		
 		ModeleTableClient modele = new ModeleTableClient(liste);		
 		JTable table = new JTable(modele);
@@ -172,7 +176,7 @@ public class VuePrincipale extends JFrame{
 	}
 	public void afficherCompteClient(Client client, ArrayList<Compte> liste) {
 		
-		this.field.setText("");
+	
 		
 		ModeleTableCompte modele = new ModeleTableCompte(liste);
 		
@@ -187,8 +191,6 @@ public class VuePrincipale extends JFrame{
 	}
 	public void afficherPortefeuilleGestionnaire(ArrayList<Compte> liste, Gestionnaire gest) {
 	
-		this.field.setText("");
-		
 		ModeleTableCompte modele = new ModeleTableCompte(liste);
 		
 		JTable table = new JTable(modele);
