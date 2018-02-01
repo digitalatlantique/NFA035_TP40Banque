@@ -57,6 +57,10 @@ public class ControllerPrincipale implements ActionListener {
 				vue.afficherPortefeuilleGestionnaire(gest.listerCompte(), gest);
 				break;
 			}
+			case "compteClient" : {
+				vue.afficherCombo(gest);
+				break;
+			}
 		}
 	
 	}

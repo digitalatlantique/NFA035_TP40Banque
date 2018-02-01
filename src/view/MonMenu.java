@@ -20,6 +20,7 @@ public class MonMenu extends JMenuBar{
 	
 	private JMenuItem porteFeuille = null;
 	private JMenuItem listeClient = null;
+	private JMenuItem compteClient = null;
 	private JMenuItem quitter = null;
 	private JMenuItem prenom = null;
 	private JMenuItem solde = null;
@@ -43,6 +44,10 @@ public class MonMenu extends JMenuBar{
 		
 		listeClient = new JMenuItem("Liste Clients");
 		listeClient.setActionCommand("listeClients");
+		
+		compteClient = new JMenuItem("Compte");
+		compteClient.setActionCommand("compteClient");
+		
 		quitter = new JMenuItem("Quitter");
 		quitter.setActionCommand("quitter");
 		prenom = new JMenuItem("Prénom");
@@ -55,6 +60,7 @@ public class MonMenu extends JMenuBar{
 		gestionnaire.add(quitter);
 		
 		client.add(listeClient);
+		client.add(compteClient);
 		
 		compte.add(prenom);
 		compte.add(solde);
@@ -70,6 +76,7 @@ public class MonMenu extends JMenuBar{
 		
 		porteFeuille.addActionListener(controllerPrincipale);
 		listeClient.addActionListener(controllerPrincipale);
+		compteClient.addActionListener(controllerPrincipale);
 		quitter.addActionListener(controllerPrincipale);
 		
 		prenom.addActionListener(controllerTrierCompte);

@@ -14,11 +14,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Vector;
+import java.util.Iterator;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -28,7 +30,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.text.html.HTMLDocument.Iterator;
+
 
 import controller.ControllerPrincipale;
 import main.DemoApli;
@@ -161,8 +163,6 @@ public class VuePrincipale extends JFrame{
 		this.setVisible(true);
 	}
 	public void afficherListeClient(Vector<Client> liste) {
-
-
 		
 		ModeleTableClient modele = new ModeleTableClient(liste);		
 		JTable table = new JTable(modele);
@@ -202,7 +202,24 @@ public class VuePrincipale extends JFrame{
 
 		this.setVisible(true);
 	}
+	public void afficherCombo(Gestionnaire gest) {
+		JComboBox<String> combo = null;
+		String[] prenomClient = null; 
+		Vector<Client> liste = gest.listerClient();
 
+		int i = 0;
+		prenomClient = new String[liste.size()];
+		Iterator iterateur = liste.iterator();
+		
+		while(iterateur.hasNext()) {
+			prenomClient[i] = ((Client) iterateur.next()).getPrenom();
+			i++;
+		}		
+		combo = new JComboBox(prenomClient);
+		this.panAffichage.add(combo, BorderLayout.SOUTH);
+		this.setVisible(true);
+		
+	}
 	public void afficherSaisieChoix() {
 		panSaisie.remove(bouton2);
 		panSaisie.add(bouton1, BorderLayout.SOUTH);
