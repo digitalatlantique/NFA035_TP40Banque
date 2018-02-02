@@ -25,6 +25,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -224,9 +225,15 @@ public class VuePrincipale extends JFrame{
 		this.setVisible(true);
 		
 	}
+
 	public void comboExiste() {
 		panAffichage.changerTitre("Information");
 		panAffichage.changerArea("\n\nVeuillez choisir un prénom\ndans la liste déroulante");
+	}
+	public void afficherMessageFin() {
+		JOptionPane jop = new JOptionPane();
+		jop.showMessageDialog(this,  "Au revoir et à bientôt", "Information", JOptionPane.INFORMATION_MESSAGE);		
+
 	}
 	public void afficherSaisieChoix() {
 		panSaisie.remove(bouton2);

@@ -48,6 +48,7 @@ public class ControllerPrincipale implements ActionListener {
 		switch(itemSource) {
 		
 			case "quitter" : {
+				vue.afficherMessageFin();
 				System.exit(0);
 				break;
 			}
