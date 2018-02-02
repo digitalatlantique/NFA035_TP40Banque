@@ -25,6 +25,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -219,6 +220,10 @@ public class VuePrincipale extends JFrame{
 		this.panAffichage.add(combo, BorderLayout.SOUTH);
 		this.setVisible(true);
 		
+	}
+	public void afficherMessageFin() {
+		JOptionPane jop = new JOptionPane();
+		jop.showMessageDialog(this,  "Au revoir et à bientôt", "Information", JOptionPane.INFORMATION_MESSAGE);		
 	}
 	public void afficherSaisieChoix() {
 		panSaisie.remove(bouton2);
