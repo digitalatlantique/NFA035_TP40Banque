@@ -7,6 +7,7 @@ import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
 import model.Client;
@@ -25,6 +26,7 @@ public class ControllerPrincipale implements ActionListener {
 	
 	protected VuePrincipale vue;
 	protected Gestionnaire gest;
+	private boolean doCombo = true;
 	/**
 	 * Constructor
 	 * Create the controller with the view and the administrator object
@@ -58,11 +60,22 @@ public class ControllerPrincipale implements ActionListener {
 				break;
 			}
 			case "compteClient" : {
-				vue.afficherCombo(gest);
+				if(doCombo) {
+					vue.afficherCombo(gest);
+					doCombo = false;
+					
+				}
+				else {
+					vue.comboExiste();
+				}
 				break;
 			}
-		}
-	
+			case "combo" : {
+				
+				String prenom = (String) ((JComboBox)event.getSource()).getSelectedItem();
+				vue.afficherCompteClient(gest.trouverClient(prenom), gest.listerCompte(prenom));
+			}
+		}	
 	}
 	/**
 	 * To check if the type is an integer

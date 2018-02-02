@@ -62,6 +62,7 @@ public class VuePrincipale extends JFrame{
 
 	private String path1 = "./assets/polices/Dustismo_Roman-webfont.ttf";
 	private String path2 = "./assets/polices/CaviarDreams-webfont.ttf";	
+	private Gestionnaire gestionnaire = null;
 	
 	public VuePrincipale(Gestionnaire gest) {
 		// Configuration fenêtre principale
@@ -70,6 +71,8 @@ public class VuePrincipale extends JFrame{
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
+		
+		this.gestionnaire = gest;
 		
 		try {			
 			File fis1 = new File(path1);
@@ -174,9 +177,7 @@ public class VuePrincipale extends JFrame{
 		
 		this.setVisible(true);
 	}
-	public void afficherCompteClient(Client client, ArrayList<Compte> liste) {
-		
-	
+	public void afficherCompteClient(Client client, ArrayList<Compte> liste) {	
 		
 		ModeleTableCompte modele = new ModeleTableCompte(liste);
 		
@@ -216,9 +217,16 @@ public class VuePrincipale extends JFrame{
 			i++;
 		}		
 		combo = new JComboBox(prenomClient);
+		combo.addActionListener(new ControllerPrincipale(this, this.gestionnaire));
+		combo.setActionCommand("combo");
+		
 		this.panAffichage.add(combo, BorderLayout.SOUTH);
 		this.setVisible(true);
 		
+	}
+	public void comboExiste() {
+		panAffichage.changerTitre("Information");
+		panAffichage.changerArea("\n\nVeuillez choisir un prénom\ndans la liste déroulante");
 	}
 	public void afficherSaisieChoix() {
 		panSaisie.remove(bouton2);
