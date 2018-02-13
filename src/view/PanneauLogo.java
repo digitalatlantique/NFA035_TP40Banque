@@ -10,6 +10,11 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+/**
+ * This panel use to display the logo
+ * @author Workstation
+ *
+ */
 public class PanneauLogo extends JPanel {
 	
 	private String path1 = "./assets/images/banque.png";

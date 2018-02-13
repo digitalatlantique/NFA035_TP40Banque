@@ -7,6 +7,11 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
+/**
+ * this is the main panel
+ * @author Workstation
+ *
+ */
 public class PanneauPrincipal extends JPanel {
 	
 	public PanneauPrincipal() {

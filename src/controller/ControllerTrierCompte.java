@@ -29,14 +29,7 @@ public class ControllerTrierCompte extends ControllerPrincipale implements Actio
 		
 		switch (itemSource) {
 			
-			case "prenom" : {
-				vue.afficherListeCompte(gest.trierComptePrenom());
-				break;
-			}
-			case "solde" : {
-				vue.afficherListeCompte(gest.trierCompteSolde());
-				break;
-			}
+
 		}
 	}
 }

@@ -11,6 +11,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/**
+ * This is the panel of the key in
+ * @author Workstation
+ *
+ */
 public class PanneauSaisie extends JPanel {
 	
 	JLabel label = null;

@@ -27,6 +27,14 @@ public class ControllerPrincipale implements ActionListener {
 	protected VuePrincipale vue;
 	protected Gestionnaire gest;
 	private boolean doCombo = true;
+	
+	/**
+	 * Default constructor
+	 */
+	public ControllerPrincipale() {
+		
+	}
+	
 	/**
 	 * Constructor
 	 * Create the controller with the view and the administrator object
@@ -37,6 +45,7 @@ public class ControllerPrincipale implements ActionListener {
 		this.vue = vue;
 		this.gest = gest;
 	}	
+	
 	/**
 	 * the method controls the type and displays the choice of the user
 	 * @param event
@@ -75,6 +84,15 @@ public class ControllerPrincipale implements ActionListener {
 				
 				String prenom = (String) ((JComboBox)event.getSource()).getSelectedItem();
 				vue.afficherCompteClient(gest.trouverClient(prenom), gest.listerCompte(prenom));
+				break;
+			}
+			case "prenom" : {
+				vue.afficherListeCompte(gest.trierComptePrenom());
+				break;
+			}
+			case "solde" : {
+				vue.afficherListeCompte(gest.trierCompteSolde());
+				break;
 			}
 		}	
 	}

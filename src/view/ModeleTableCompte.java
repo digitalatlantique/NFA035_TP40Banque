@@ -7,6 +7,11 @@ import model.Compte;
 
 import javax.swing.table.AbstractTableModel;
 
+/**
+ * This is the model for accounts
+ * @author Workstation
+ *
+ */
 public class ModeleTableCompte extends AbstractTableModel {
 	
 	private ArrayList<Compte> liste = null;

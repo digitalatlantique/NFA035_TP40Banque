@@ -6,11 +6,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.Vector;
+
+import javax.swing.SwingUtilities;
 
 import controller.ControllerPrincipale;
 import model.Client;
@@ -30,21 +33,28 @@ import view.VuePrincipale;
  *
  */
 public class DemoApli {	
+	
+	public static VuePrincipale vue; 
 		 
-	public static void main(String[] args) {		
+	public static void main(String[] args) throws InvocationTargetException, InterruptedException {
+						
+		// Création du gestionnaire
+		Gestionnaire gest = new Gestionnaire("Rotchild");					
+		// Récupération data
+		String[] tab = extractData();
+		// Création des clients avec les datas
+		initialisationClient(tab, gest);
+		
+        SwingUtilities.invokeAndWait(new Runnable() {
+            public void run() {
+            	vue = new VuePrincipale();
+            }
+          });
+		
+		ControllerPrincipale controllerPrincipale = new ControllerPrincipale(vue, gest);
+		vue.ecouterMenu(controllerPrincipale);
+		
 
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-					public void run() {
-						
-						// Création du gestionnaire
-						Gestionnaire gest = new Gestionnaire("Rotchild");					
-						// Récupération data
-						String[] tab = extractData();
-						// Création des clients avec les datas
-						initialisationClient(tab, gest);
-						
-						new VuePrincipale(gest);					}
-		});
 	}	
 	
 	/**

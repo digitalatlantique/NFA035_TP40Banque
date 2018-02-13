@@ -4,9 +4,11 @@ package model;
 import java.util.*;
 
 /**
- * 
+ * This is the abstract superclass of Client and Administrator
+ * this abstract method list aal account of a customer
+ * this define a person
  */
-abstract class Personne  {
+abstract class Personne {
 
     /**
      * Default constructor
@@ -21,17 +23,17 @@ abstract class Personne  {
     }
 
     /**
-     * 
+     * For the first name
      */
     private String prenom;
 
     /**
-     * 
+     * For the statut
      */
     private String profil;
     
     /**
-     * 
+     * list all account
      */
     abstract ArrayList<Compte> listerCompte();
 

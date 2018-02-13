@@ -7,7 +7,7 @@ import main.DemoApli;
 import view.ConsoleAffichage;
 
 /**
- * 
+ * this is the administrator of the customers
  */
 public class Gestionnaire extends Personne {
 	
@@ -27,27 +27,28 @@ public class Gestionnaire extends Personne {
     	this.liste = new Vector<Client>();    	
     }
     /**
-     * 
+     * Contains a list of customers
      */
     private Vector<Client> liste;
+    
     /**
-     * 
+     * This is the identification of the administrator
      */
     private Integer numMat;
 
     /**
-     * 
+     * This is the balance of all customers 
      */
     private Double chiffreAffaire;
     
     /**
-     * 
+     * An identification
      */
     private static int compteurId = 0; 
 
 
     /**
-     * liste tout les comptes
+     * List of all the accounts
      */    
     public ArrayList<Compte> listerCompte(){
     	ArrayList<Compte> listeAllComptes = new ArrayList<Compte>();
@@ -62,8 +63,8 @@ public class Gestionnaire extends Personne {
     }
     
     /**
-     * Liste les comptes d'un client
-     * @param prenom
+     * List of all accounts of a customer
+     * @param prenom to find all the accounts
      */
     public ArrayList<Compte> listerCompte(String prenom) {
     	
@@ -76,7 +77,7 @@ public class Gestionnaire extends Personne {
     }
     
     /**
-     * Liste un type de compte client
+     * list of one type of accounts
      * @param prenom, type du compte
      */
     public ArrayList<Compte> listerCompte(String prenom, TypeCompte type) {
@@ -89,14 +90,14 @@ public class Gestionnaire extends Personne {
     }
 
     /**
-     * Affiche le chiffre d'affaire du gestionnaire
+     * @return the balance of the administrator
      */
     public Double consulterChiffreAffaire() {
     	this.setChiffreAffaire();
     	return this.chiffreAffaire;
     }
     /**
-     * Détermine le chiffre d'affaire du gestionnaire
+     * Do the balance of the administrator
      */
 	public void setChiffreAffaire() {
     	double res = 0.0;
@@ -107,7 +108,7 @@ public class Gestionnaire extends Personne {
 	}
 
     /**
-     * Create un compte client sans doublon de prénom
+     * Create an account for the customer
      */
     public Client createClient(String prenom, int age, Genre genre) {
     	boolean test = false;
@@ -120,12 +121,13 @@ public class Gestionnaire extends Personne {
     			break;
     		}
     	}
-    	// Si doublon on affiche message
+    	// TODO Display in the IHM
+    	// Check no duplicate element
 		if(test) {
 			ConsoleAffichage aff = new ConsoleAffichage();
 			aff.doublonClient();
 		}
-		// Sinon on créer le client 
+		 
 		else {
 	    	clientAjout = new Client(prenom, age, genre, this);
 	    	liste.add(clientAjout);
@@ -134,7 +136,7 @@ public class Gestionnaire extends Personne {
     }
     
     /**
-     * @param Gestionnaire
+     * @return the liste of the customers
      */
     public Vector<Client> listerClient() {    	
         return this.liste;
@@ -147,6 +149,11 @@ public class Gestionnaire extends Personne {
         // TODO implement here
     }
     
+    /**
+     * Find the customers with his first name
+     * @param prenom
+     * @return the customer
+     */
     public Client trouverClient(String prenom) {
     	Client client = null;
     	
@@ -159,7 +166,7 @@ public class Gestionnaire extends Personne {
     	return client;
     }    
     /**
-     * Permet de consulter le portefeuille d'un client
+     * To show all account of a customer
      */
     public Client consulterPortefeuilleClient(String prenom) {
         for(Client client : liste) {
@@ -170,20 +177,26 @@ public class Gestionnaire extends Personne {
         return null;
     }
     /**
-     * 
-     * @return
+     * Sort account for balance
+     * @return a list of account
      */
     public ArrayList<Compte> trierCompteSolde() {
     	ArrayList<Compte> listeAllComptes = listerCompte();
     	Collections.sort(listeAllComptes, new CompareSolde()); 
     	return listeAllComptes;   
     }
+    
+    /**
+     * Sort account for the first name
+     * @return a list of account
+     */
     public ArrayList<Compte> trierComptePrenom(){
     	ArrayList<Compte> listeAllComptes = listerCompte();
     	Collections.sort(listeAllComptes, new ComparePrenom()); 
     	return listeAllComptes;  
     }
 
+    
 	public Integer getNumMat() {
 		return numMat;
 	}

@@ -10,6 +10,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.MenuBar;
 import java.awt.TextField;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,8 +43,14 @@ import model.Client;
 import model.Compte;
 import model.Gestionnaire;
 
+/**
+ * This is the main frame
+ * The colors use in this application are : RGB1(0, 32, 74) RGB2(0, 87, 146) RGB3(0, 187, 240) RGB4(217, 250, 255)
+ * @author Workstation
+ *
+ */
 public class VuePrincipale extends JFrame{
-	// Palette Couleur => RGB1(0, 32, 74) RGB2(0, 87, 146) RGB3(0, 187, 240) RGB4(217, 250, 255)
+
 	private JPanel panPrincipal = null;
 	private JPanel panLogo = null;
 	private JPanel panG = null;
@@ -63,17 +70,19 @@ public class VuePrincipale extends JFrame{
 
 	private String path1 = "./assets/polices/Dustismo_Roman-webfont.ttf";
 	private String path2 = "./assets/polices/CaviarDreams-webfont.ttf";	
-	private Gestionnaire gestionnaire = null;
+
 	
-	public VuePrincipale(Gestionnaire gest) {
+	/**
+	 * Default constructor the main frame
+	 * @param gest
+	 */
+	public VuePrincipale() {
 		// Configuration fenêtre principale
 		super("Banque_TP40_version-IHM");		
 		this.setSize(800, 600);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
-		
-		this.gestionnaire = gest;
 		
 		try {			
 			File fis1 = new File(path1);
@@ -85,28 +94,20 @@ public class VuePrincipale extends JFrame{
 			e.printStackTrace();
 		}	
 		
-		// Panneau principale
+		// Main panel
 		panPrincipal = new PanneauPrincipal();
 		panG = new JPanel();
 		panC = new PanneauCentral();
 		
 		// JMenuBar
-		menuBar = new MonMenu(this, gest, font1);
+		menuBar = new MonMenu(font1);
 		
-		// Panneau logo
+		// Logo panel
 		panLogo = new PanneauLogo();		
-		// Panneau menu latérale
+		//Display panel
 		panAffichage = new PanneauAffichage(font1, font2);
-		/*Panneau saisie		
-		panSaisie = new PanneauSaisie(this, this.font1, this.font2);
-		panG.add(panSaisie, BorderLayout.SOUTH);
 		
-		// Ecoute du bouton
-		this.getBouton().addActionListener(cp);
-		
-		 */
-		
-		// Panneau de gauche
+		// Left panel
 		panG.setLayout(new BorderLayout());
 		panG.setPreferredSize(new Dimension(180, 480));
 		panG.setOpaque(false);
@@ -121,10 +122,7 @@ public class VuePrincipale extends JFrame{
 		this.setContentPane(panPrincipal);	
 		
 		this.pack();
-		this.setVisible(true);	
-		
-		// Instance du controller
-		ControllerPrincipale cp = new ControllerPrincipale(this, gest);
+		this.setVisible(true);			
 
 	}	
 
@@ -151,6 +149,15 @@ public class VuePrincipale extends JFrame{
 	public void setLabel(JLabel label) {
 		this.label = label;
 	}
+	
+	public void ecouterMenu(ActionListener controllerPrincipale) {
+		((MonMenu) menuBar).ecouterElementsMenu(controllerPrincipale);
+	}
+	
+	/**
+	 * Display all accounts
+	 * @param liste
+	 */
 	public void afficherListeCompte(ArrayList<Compte> liste) {
 
 		panAffichage.changerTitre("Liste");
@@ -166,7 +173,15 @@ public class VuePrincipale extends JFrame{
 		panPrincipal.add(panC);
 		this.setVisible(true);
 	}
+	
+	/**
+	 * Display all the customers
+	 * @param liste
+	 */
 	public void afficherListeClient(Vector<Client> liste) {
+		
+		panAffichage.changerTitre("Liste");
+		panAffichage.changerArea("\n\nListe des clients");
 		
 		ModeleTableClient modele = new ModeleTableClient(liste);		
 		JTable table = new JTable(modele);
@@ -178,7 +193,16 @@ public class VuePrincipale extends JFrame{
 		
 		this.setVisible(true);
 	}
-	public void afficherCompteClient(Client client, ArrayList<Compte> liste) {	
+	
+	/**
+	 * Display all accounts of the customer
+	 * @param client
+	 * @param liste
+	 */
+	public void afficherCompteClient(Client client, ArrayList<Compte> liste) {
+		
+		panAffichage.changerTitre("Liste");
+		panAffichage.changerArea("\n\nListe des comptes\nd'un client");
 		
 		ModeleTableCompte modele = new ModeleTableCompte(liste);
 		
@@ -191,20 +215,38 @@ public class VuePrincipale extends JFrame{
 
 		this.setVisible(true);
 	}
+	
+	/**
+	 * Display all accounts of the administrator
+	 * @param liste
+	 * @param gest
+	 */
 	public void afficherPortefeuilleGestionnaire(ArrayList<Compte> liste, Gestionnaire gest) {
+		
+		panAffichage.changerTitre("Gestionnaire");
+		panAffichage.changerArea("\n\nListe des comptes\ndes clients du\ngestionnaire");
 	
 		ModeleTableCompte modele = new ModeleTableCompte(liste);
 		
 		JTable table = new JTable(modele);
-		table.getColumnModel().getColumn(3).setCellRenderer(new DebitCellRenderer());
-
+		
+		table.getColumnModel().getColumn(3).setCellRenderer(new DebitCellRenderer());		
 		panPrincipal.remove(panC);		
 		panC = new PanneauCentral(table, gest);
 		panPrincipal.add(panC);
 
 		this.setVisible(true);
 	}
+	
+	/**
+	 * Dispaly a JComboBox with the first name of the customers
+	 * @param gest
+	 */
 	public void afficherCombo(Gestionnaire gest) {
+		
+		panAffichage.changerTitre("Sélection");
+		panAffichage.changerArea("\n\nChoisir un client...");
+		
 		JComboBox<String> combo = null;
 		String[] prenomClient = null; 
 		Vector<Client> liste = gest.listerClient();
@@ -218,7 +260,7 @@ public class VuePrincipale extends JFrame{
 			i++;
 		}		
 		combo = new JComboBox(prenomClient);
-		combo.addActionListener(new ControllerPrincipale(this, this.gestionnaire));
+		combo.addActionListener(new ControllerPrincipale(this, gest));
 		combo.setActionCommand("combo");
 		
 		this.panAffichage.add(combo, BorderLayout.SOUTH);
@@ -226,15 +268,27 @@ public class VuePrincipale extends JFrame{
 		
 	}
 
+	/**
+	 * Check if the JComboBox exist
+	 */
 	public void comboExiste() {
 		panAffichage.changerTitre("Information");
 		panAffichage.changerArea("\n\nVeuillez choisir un prénom\ndans la liste déroulante");
 	}
+	
+	/**
+	 * Display a message to say goodbye
+	 */
 	public void afficherMessageFin() {
 		JOptionPane jop = new JOptionPane();
 		jop.showMessageDialog(this,  "Au revoir et à bientôt", "Information", JOptionPane.INFORMATION_MESSAGE);		
 
 	}
+	// TODO Adapt with the new display 
+	/**
+	 * Display the choice of the user 
+	 * @deprecated
+	 */
 	public void afficherSaisieChoix() {
 		panSaisie.remove(bouton2);
 		panSaisie.add(bouton1, BorderLayout.SOUTH);
@@ -242,6 +296,11 @@ public class VuePrincipale extends JFrame{
 		label.setForeground(Color.BLACK);
 	}
 	
+	// TODO Adapt with the new display 
+	/**
+	 * Display the first name selected
+	 * @deprecated
+	 */
 	public void afficherSaisiePrenom() {
 		this.field.setText("");
 		panSaisie.remove(bouton1);
@@ -249,10 +308,22 @@ public class VuePrincipale extends JFrame{
 		panSaisie.add(bouton2, BorderLayout.SOUTH);
 		label.setText("Saisir un prénom :");
 	}
+	
+	// TODO Adapt with the new display 
+	/**
+	 * Display an key in error
+	 * @deprecated
+	 */
 	public void afficherErreurMenu() {
 		label.setForeground(Color.RED);
 		label.setText("Saisie incorrect !!");
 	}
+	
+	// TODO Adapt with the new display 
+	/**
+	 * Display the label of the key in
+	 * @deprecated
+	 */
 	public void afficherLabel() {
 		label.setForeground(Color.BLACK);
 		label.setText("Saisir votre choix :");	

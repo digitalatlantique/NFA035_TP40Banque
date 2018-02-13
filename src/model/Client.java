@@ -117,7 +117,7 @@ public class Client extends Personne {
      * @return the cash
      */
     public Double consulterTresorerie() {
-    	// TODO a comment
+    	
     	Double resultat = 0.0;
     	
     	for(int i=0; i<mesComptes.size(); i++) {

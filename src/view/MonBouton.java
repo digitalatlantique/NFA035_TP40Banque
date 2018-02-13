@@ -10,6 +10,11 @@ import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
+/**
+ * This is a custom's button
+ * @author Workstation
+ *
+ */
 public class MonBouton extends JButton  {
 		
 	private ImageIcon icon = null;

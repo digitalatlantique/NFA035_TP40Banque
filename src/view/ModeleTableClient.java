@@ -6,6 +6,11 @@ import javax.swing.table.AbstractTableModel;
 
 import model.Client;
 
+/**
+ * This is the model for the counts of customers
+ * @author Workstation
+ *
+ */
 public class ModeleTableClient extends AbstractTableModel {
 	
 	Vector<Client> liste = null;

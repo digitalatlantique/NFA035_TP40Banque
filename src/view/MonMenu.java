@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionListener;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -11,6 +12,11 @@ import controller.ControllerPrincipale;
 import controller.ControllerTrierCompte;
 import model.Gestionnaire;
 
+/**
+ * This is the main menu
+ * @author Workstation
+ *
+ */
 public class MonMenu extends JMenuBar{
 
 	private JMenu gestionnaire = null;
@@ -28,7 +34,7 @@ public class MonMenu extends JMenuBar{
 	private ControllerPrincipale controllerPrincipale = null;
 	private ControllerTrierCompte controllerTrierCompte = null;
 	
-	public MonMenu(VuePrincipale vue, Gestionnaire gest, Font font1) {		
+	public MonMenu(Font font1) {		
 		
 		this.setBackground(new Color(217, 250, 255));
 		font1 = font1.deriveFont((float)15.0);
@@ -70,18 +76,30 @@ public class MonMenu extends JMenuBar{
 		this.add(gestionnaire);
 		this.add(client);
 		this.add(trier);
-		
-		controllerPrincipale = new ControllerPrincipale(vue, gest);
-		controllerTrierCompte = new ControllerTrierCompte(vue, gest);
+	}	
+	
+	public void ecouterElementsMenu(ActionListener controllerPrincipale) {
 		
 		porteFeuille.addActionListener(controllerPrincipale);
 		listeClient.addActionListener(controllerPrincipale);
 		compteClient.addActionListener(controllerPrincipale);
 		quitter.addActionListener(controllerPrincipale);
 		
-		prenom.addActionListener(controllerTrierCompte);
-		solde.addActionListener(controllerTrierCompte);
-
-
-	}	
+		prenom.addActionListener(controllerPrincipale);
+		solde.addActionListener(controllerPrincipale);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -24,6 +24,11 @@ import javax.swing.table.TableModel;
 import model.Client;
 import model.Gestionnaire;
 
+/**
+ * This is the center's panel
+ * @author Workstation
+ *
+ */
 public class PanneauCentral extends JPanel {	
 	
 	private JTable table = null;

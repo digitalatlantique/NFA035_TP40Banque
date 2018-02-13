@@ -13,6 +13,11 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+/**
+ * This is the display's panel
+ * @author Workstation
+ *
+ */
 public class PanneauAffichage extends JPanel {
 	
 	private JTextArea texteArea = null;
