@@ -39,9 +39,11 @@ public class DemoApli {
 	public static void main(String[] args) throws InvocationTargetException, InterruptedException {
 						
 		// Création du gestionnaire
-		Gestionnaire gest = new Gestionnaire("Rotchild");					
+		Gestionnaire gest = new Gestionnaire("Rotchild");	
+		
 		// Récupération data
 		String[] tab = extractData();
+		
 		// Création des clients avec les datas
 		initialisationClient(tab, gest);
 		
@@ -146,6 +148,7 @@ public class DemoApli {
     		}
     		// Create account(s)
     		client.creerCompte(choixType, DemoApli.genererNbrDouble(-1000.0, 100000.0));
+    
     	}
 	}
 	
@@ -192,8 +195,8 @@ public class DemoApli {
 	 * @return A number randomly
 	 */
 	public static int genererNbrInt(int min, int max) {		
-		Random r = new Random();
-		int nbr = r.nextInt(max - min + 1);		
+		
+		int nbr = (int) ((Math.random() * (max - min)) + min);		
 		return nbr;
 	}
 	/**
@@ -203,8 +206,10 @@ public class DemoApli {
 	 * @return A real number randomly
 	 */
 	public static Double genererNbrDouble(Double min, Double max) {	
-		Double res = Math.random()*( max - min + 1 );
-		return (Math.floor(res*100))/100;
+		double delta = max - min + 1;
+		double resultat = Math.random() * (delta);
+		resultat += min;
+		return (Math.floor(resultat * 100)) / 100;
 	}
 
 }
