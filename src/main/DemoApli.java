@@ -54,7 +54,7 @@ public class DemoApli {
           });
 		
 		ControllerPrincipale controllerPrincipale = new ControllerPrincipale(vue, gest);
-		vue.ecouterMenu(controllerPrincipale);
+		
 		
 
 	}	

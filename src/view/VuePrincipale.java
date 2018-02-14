@@ -32,7 +32,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import controller.ControllerPrincipale;
 import main.DemoApli;
@@ -62,6 +63,7 @@ public class VuePrincipale extends JFrame{
 
 	private JLabel label = null;
 	private JTextField field= null;
+	private JList listeMenu;
 	
 	private JButton bouton1 = null;
 	private JButton bouton2 = null;
@@ -106,6 +108,7 @@ public class VuePrincipale extends JFrame{
 		panLogo = new PanneauLogo();		
 		//Display panel
 		panAffichage = new PanneauAffichage(font1, font2);
+		listeMenu = panAffichage.getListeChoix();
 		
 		// Left panel
 		panG.setLayout(new BorderLayout());
@@ -124,6 +127,7 @@ public class VuePrincipale extends JFrame{
 		this.pack();
 		this.setVisible(true);			
 
+		
 	}	
 
 
@@ -141,6 +145,12 @@ public class VuePrincipale extends JFrame{
 	public JTextField getField() {
 		return field;
 	}
+	
+
+	public JList getListeMenu() {
+		return listeMenu;
+	}
+
 
 	public void setField(JTextField field) {
 		this.field = field;
@@ -154,6 +164,13 @@ public class VuePrincipale extends JFrame{
 		((MonMenu) menuBar).ecouterElementsMenu(controllerPrincipale);
 	}
 	
+	public void ecouterJList(ListSelectionListener controllerPrincipale) {
+		panAffichage.ecouterJList(controllerPrincipale);
+	}
+	public void ecouterBouton(ActionListener controllerPrincipale) {
+		panAffichage.ecouterBouton(controllerPrincipale);
+	}
+	
 	/**
 	 * Display all accounts
 	 * @param liste
@@ -161,7 +178,7 @@ public class VuePrincipale extends JFrame{
 	public void afficherListeCompte(ArrayList<Compte> liste) {
 
 		panAffichage.changerTitre("Liste");
-		panAffichage.changerArea("\n\nListe des comptes clients");
+		
 		
 		ModeleTableCompte modele = new ModeleTableCompte(liste);
 	
@@ -181,7 +198,7 @@ public class VuePrincipale extends JFrame{
 	public void afficherListeClient(Vector<Client> liste) {
 		
 		panAffichage.changerTitre("Liste");
-		panAffichage.changerArea("\n\nListe des clients");
+		
 		
 		ModeleTableClient modele = new ModeleTableClient(liste);		
 		JTable table = new JTable(modele);
@@ -202,7 +219,7 @@ public class VuePrincipale extends JFrame{
 	public void afficherCompteClient(Client client, ArrayList<Compte> liste) {
 		
 		panAffichage.changerTitre("Liste");
-		panAffichage.changerArea("\n\nListe des comptes\nd'un client");
+		
 		
 		ModeleTableCompte modele = new ModeleTableCompte(liste);
 		
@@ -224,7 +241,7 @@ public class VuePrincipale extends JFrame{
 	public void afficherPortefeuilleGestionnaire(ArrayList<Compte> liste, Gestionnaire gest) {
 		
 		panAffichage.changerTitre("Gestionnaire");
-		panAffichage.changerArea("\n\nListe des comptes\ndes clients du\ngestionnaire");
+		
 	
 		ModeleTableCompte modele = new ModeleTableCompte(liste);
 		
@@ -245,7 +262,7 @@ public class VuePrincipale extends JFrame{
 	public void afficherCombo(Gestionnaire gest) {
 		
 		panAffichage.changerTitre("Sélection");
-		panAffichage.changerArea("\n\nChoisir un client...");
+		
 		
 		JComboBox<String> combo = null;
 		String[] prenomClient = null; 
@@ -263,7 +280,7 @@ public class VuePrincipale extends JFrame{
 		combo.addActionListener(new ControllerPrincipale(this, gest));
 		combo.setActionCommand("combo");
 		
-		this.panAffichage.add(combo, BorderLayout.SOUTH);
+		this.panAffichage.add(combo);
 		this.setVisible(true);
 		
 	}
@@ -272,8 +289,7 @@ public class VuePrincipale extends JFrame{
 	 * Check if the JComboBox exist
 	 */
 	public void comboExiste() {
-		panAffichage.changerTitre("Information");
-		panAffichage.changerArea("\n\nVeuillez choisir un prénom\ndans la liste déroulante");
+		panAffichage.changerTitre("Information");		
 	}
 	
 	/**
@@ -284,16 +300,13 @@ public class VuePrincipale extends JFrame{
 		jop.showMessageDialog(this,  "Au revoir et à bientôt", "Information", JOptionPane.INFORMATION_MESSAGE);		
 
 	}
-	// TODO Adapt with the new display 
+	
 	/**
 	 * Display the choice of the user 
-	 * @deprecated
+	 * 
 	 */
-	public void afficherSaisieChoix() {
-		panSaisie.remove(bouton2);
-		panSaisie.add(bouton1, BorderLayout.SOUTH);
-		label.setText("Saisir votre choix :");
-		label.setForeground(Color.BLACK);
+	public void afficherChoix(String choix) {		
+		panAffichage.afficherChoix(choix);		
 	}
 	
 	// TODO Adapt with the new display 

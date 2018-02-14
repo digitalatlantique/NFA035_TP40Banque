@@ -9,6 +9,8 @@ import java.util.regex.Pattern;
 
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import model.Client;
 import model.Compte;
@@ -22,7 +24,7 @@ import view.VuePrincipale;
  * @since 1.1
  *
  */
-public class ControllerPrincipale implements ActionListener {
+public class ControllerPrincipale implements ActionListener, ListSelectionListener{
 	
 	protected VuePrincipale vue;
 	protected Gestionnaire gest;
@@ -44,6 +46,9 @@ public class ControllerPrincipale implements ActionListener {
 	public ControllerPrincipale(VuePrincipale vue, Gestionnaire gest) {
 		this.vue = vue;
 		this.gest = gest;
+		vue.ecouterMenu(this);
+		vue.ecouterJList(this);
+		vue.ecouterBouton(this);
 	}	
 	
 	/**
@@ -94,7 +99,45 @@ public class ControllerPrincipale implements ActionListener {
 				vue.afficherListeCompte(gest.trierCompteSolde());
 				break;
 			}
+			case "bouton" : {
+				int choixUser = vue.getListeMenu().getSelectedIndex();
+				
+				switch(choixUser) {
+				
+					case 0 : {
+						vue.afficherMessageFin();
+						System.exit(0);
+						break;
+					}
+					case 1 : {
+						vue.afficherListeClient(gest.listerClient());
+						break;
+					}
+					case 2 : {
+						if(doCombo) {
+							vue.afficherCombo(gest);
+							doCombo = false;
+							
+						}
+						else {
+							vue.comboExiste();
+						}
+						break;
+					}
+					case 3 : {
+						vue.afficherPortefeuilleGestionnaire(gest.listerCompte(), gest);
+						break;
+					}
+				}
+			}
 		}	
+	}
+	
+	@Override
+	public void valueChanged(ListSelectionEvent arg0) {
+		
+		vue.afficherChoix((String) (vue.getListeMenu().getSelectedValue()));
+		
 	}
 	/**
 	 * To check if the type is an integer
@@ -118,4 +161,6 @@ public class ControllerPrincipale implements ActionListener {
 		boolean resultat = matcher.matches();
 		return resultat;
     }
+
+
 }
