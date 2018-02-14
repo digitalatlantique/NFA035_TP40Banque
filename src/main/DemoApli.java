@@ -115,14 +115,7 @@ public class DemoApli {
 			if(tmp[3].equals("femme")){
 				client = gest.createClient(tmp[0], Integer.parseInt(tmp[2]), Genre.femme);
 				creerCompteAleatoire(client, genererNbrInt(0, 4));
-			}
-			// A break to differentiate the customer's identifications
-			try {
-	            Thread.sleep(3);
-	        } 
-			catch (InterruptedException e) {
-	            e.printStackTrace();
-	        }			
+			}		
 		}
 	}
 	/**
@@ -153,6 +146,25 @@ public class DemoApli {
 	}
 	
 	/**
+	 * Generate an identification with timestamp
+	 * @return type string identification
+	 */
+	public static String genererID() {
+		// A break to differentiate the identification
+		try {
+            Thread.sleep(1);
+        } 
+		catch (InterruptedException e) {
+            e.printStackTrace();
+        }	
+		// Get the six last figures of time stamp 
+		long ts = System.currentTimeMillis();
+		String str = String.valueOf(ts);
+		str = str.substring(7);
+		return str;
+	}
+	
+	/**
 	 * Generate an identification for the customers.
 	 * The identifications are made with the six first numbers of time stamp and two first vowels of the first name 
 	 *  
@@ -168,9 +180,7 @@ public class DemoApli {
 		int compteur = 0;
 		
 		// Get the six last figures of time stamp 
-		long ts = System.currentTimeMillis();
-		str2 = String.valueOf(ts);
-		str2 = str2.substring(7);	
+		str2 = genererID();	
 		
 		// Get the first two vowels 
 		for(int i=0; i<prenom.length(); i++) {			

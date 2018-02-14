@@ -1,5 +1,7 @@
 package model;
 
+import main.DemoApli;
+
 /**
  * This is an account of the customer. The account is made of an identification, a first name, a type and the balance 
  * @author Win7
@@ -30,8 +32,7 @@ public class Compte {
 		this.prenom = client.getPrenom();
 		this.type = type;
 		this.solde = solde;
-		this.numCpte = client.getIdClient();
-;		
+		this.numCpte = client.getIdClient() + "-" + DemoApli.genererID();		
 	}
 
 	public String getNumCpte() {
