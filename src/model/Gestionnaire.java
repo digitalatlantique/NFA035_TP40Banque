@@ -195,6 +195,12 @@ public class Gestionnaire extends Personne {
     	Collections.sort(listeAllComptes, new CompareSolde()); 
     	return listeAllComptes;   
     }
+    public ArrayList<Compte> trierCompteSoldeDecroissant() {
+    	
+    	ArrayList<Compte> listeAllComptes = listerCompte();
+    	Collections.sort(listeAllComptes, new CompareSoldeDecroissant()); 
+    	return listeAllComptes;   
+    }
     
     /**
      * Sort account for the first name
@@ -203,6 +209,11 @@ public class Gestionnaire extends Personne {
     public ArrayList<Compte> trierComptePrenom(){
     	ArrayList<Compte> listeAllComptes = listerCompte();
     	Collections.sort(listeAllComptes, new ComparePrenom()); 
+    	return listeAllComptes;  
+    }
+    public ArrayList<Compte> trierComptePrenomDecroissant(){
+    	ArrayList<Compte> listeAllComptes = listerCompte();
+    	Collections.sort(listeAllComptes, new ComparePrenomDecroissant()); 
     	return listeAllComptes;  
     }
 

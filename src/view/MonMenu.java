@@ -3,12 +3,14 @@ package view;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+
+import javax.swing.ButtonGroup;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import controller.ControllerPrincipale;
-import controller.ControllerTrierCompte;
+import javax.swing.JRadioButton;
 
+import controller.ControllerPrincipale;
 
 /**
  * This is the main menu
@@ -17,6 +19,11 @@ import controller.ControllerTrierCompte;
  */
 public class MonMenu extends JMenuBar{
 
+	private JRadioButton triCroissant;
+	private JRadioButton triDecroissant;
+	private ButtonGroup bg = new ButtonGroup();
+	
+	
 	private JMenu gestionnaire;
 	private JMenu client;
 	private JMenu trier;
@@ -28,10 +35,9 @@ public class MonMenu extends JMenuBar{
 	private JMenuItem compteClient;
 	private JMenuItem quitter;
 	private JMenuItem prenom;
-	private JMenuItem solde;
-	
+	private JMenuItem solde;	
 	private ControllerPrincipale controllerPrincipale = null;
-	private ControllerTrierCompte controllerTrierCompte = null;
+
 	
 	/**
 	 * Constructor with a font
@@ -48,6 +54,16 @@ public class MonMenu extends JMenuBar{
 		client = new JMenu("Client");
 		trier = new JMenu("Trier");
 		compte = new JMenu("Compte");
+		
+		// Radio Button
+		bg = new ButtonGroup();
+		triCroissant = new JRadioButton("Croissant");
+		triCroissant.setActionCommand("croissant");
+		triCroissant.setSelected(true);
+		triDecroissant = new JRadioButton("Décroissant");
+		triDecroissant.setActionCommand("decroissant");
+		bg.add(triCroissant);
+		bg.add(triDecroissant);
 		
 		//The item
 		crediterClient = new JMenuItem("Opération bancaire");
@@ -74,11 +90,15 @@ public class MonMenu extends JMenuBar{
 		gestionnaire.addSeparator();
 		gestionnaire.add(quitter);
 		
+
 		client.add(listeClient);
 		client.add(compteClient);
 		
 		compte.add(prenom);
 		compte.add(solde);
+		compte.addSeparator();
+		compte.add(triCroissant);
+		compte.add(triDecroissant);
 		
 		trier.add(compte);
 		
@@ -99,21 +119,17 @@ public class MonMenu extends JMenuBar{
 		compteClient.addActionListener(controllerPrincipale);
 		quitter.addActionListener(controllerPrincipale);
 		
+		triCroissant.addActionListener(controllerPrincipale);
+		triDecroissant.addActionListener(controllerPrincipale);
 		prenom.addActionListener(controllerPrincipale);
 		solde.addActionListener(controllerPrincipale);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	public JRadioButton getTriCroissant() {
+		return triCroissant;
+	}
+
+	public JRadioButton getTriDecroissant() {
+		return triDecroissant;
+	}	
 }

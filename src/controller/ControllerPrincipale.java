@@ -21,9 +21,10 @@ import view.VuePrincipale;
 public class ControllerPrincipale implements ActionListener, ListSelectionListener {
 	
 	protected VuePrincipale vue;
+	private OperationDialog vueOperation;
 	protected Gestionnaire gest;
 	private static boolean doCombo = true;
-	OperationDialog vueOperation;
+	private static boolean croissant = true;
 	
 	/**
 	 * Default constructor
@@ -53,7 +54,7 @@ public class ControllerPrincipale implements ActionListener, ListSelectionListen
 	public void actionPerformed(ActionEvent event){
 		
 		String itemSource = event.getActionCommand();
-		
+
 		switch(itemSource) {
 		
 		// MenuBar
@@ -88,11 +89,30 @@ public class ControllerPrincipale implements ActionListener, ListSelectionListen
 				break;
 			}
 			case "prenom" : {
-				vue.afficherListeCompte(gest.trierComptePrenom());
+				if(croissant) {
+					vue.afficherListeCompte(gest.trierComptePrenom());
+				}
+				else {
+					vue.afficherListeCompte(gest.trierComptePrenomDecroissant());
+				}
 				break;
 			}
 			case "solde" : {
-				vue.afficherListeCompte(gest.trierCompteSolde());
+				if(croissant) {
+					vue.afficherListeCompte(gest.trierCompteSolde());
+				}
+				else {
+					vue.afficherListeCompte(gest.trierCompteSoldeDecroissant());
+				}
+				
+				break;
+			}			
+			case "croissant" : {
+				croissant = true;
+				break;
+			}
+			case "decroissant" : {
+				croissant = false;
 				break;
 			}
 			

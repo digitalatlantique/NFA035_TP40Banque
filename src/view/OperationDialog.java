@@ -42,7 +42,7 @@ public class OperationDialog extends JDialog implements Observer {
 	private JTextField saisieMontant;
 	private JButton bouton;
 		
-	private ButtonGroup bg = new ButtonGroup();	
+	private ButtonGroup bg;	
 	
 	/**
 	 * Constructor for the operation dialog
@@ -75,6 +75,7 @@ public class OperationDialog extends JDialog implements Observer {
 		radioDebiter = new JRadioButton("Débiter");
 		
 		// To group the Radio Button
+		bg = new ButtonGroup();
 		bg.add(radioCrediter);
 		bg.add(radioDebiter);
 

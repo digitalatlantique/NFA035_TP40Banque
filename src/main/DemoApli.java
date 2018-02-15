@@ -7,14 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
-import java.util.Vector;
-
 import javax.swing.SwingUtilities;
-
 import controller.ControllerPrincipale;
 import model.Client;
 import model.Compte;

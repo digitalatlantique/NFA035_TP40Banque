@@ -39,9 +39,6 @@ import javax.swing.event.ListSelectionListener;
 
 import controller.ControllerPrincipale;
 import main.DemoApli;
-
-import javax.imageio.ImageIO;
-
 import model.Client;
 import model.Compte;
 import model.Gestionnaire;
@@ -61,11 +58,11 @@ public class VuePrincipale extends JFrame implements Observer{
 	private PanneauAffichage panAffichage = null;
 	private JPanel panSaisie = null;
 	
-	private JMenuBar menuBar = null;
+	private MonMenu menuBar = null;
 
 	private JLabel label = null;
 	private JTextField field= null;
-	private JList listeMenu;
+	private JList<String> listeMenu;
 	
 	private JButton bouton1 = null;
 	private JButton bouton2 = null;
@@ -130,9 +127,8 @@ public class VuePrincipale extends JFrame implements Observer{
 		this.setVisible(true);			
 
 		
-	}	
-
-
+	}
+	
 	public JButton getBouton() {
 		return bouton1;
 	}
@@ -149,7 +145,7 @@ public class VuePrincipale extends JFrame implements Observer{
 	}
 	
 
-	public JList getListeMenu() {
+	public JList<String> getListeMenu() {
 		return listeMenu;
 	}
 
