@@ -2,7 +2,6 @@ package model;
 
 
 import java.util.*;
-import view.ConsoleAffichage;
 import view.VuePrincipale;
 
 

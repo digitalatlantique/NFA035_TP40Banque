@@ -21,7 +21,6 @@ import model.Compte;
 import model.Genre;
 import model.Gestionnaire;
 import model.TypeCompte;
-import view.ConsoleAffichage;
 import view.VuePrincipale;
 
 /**

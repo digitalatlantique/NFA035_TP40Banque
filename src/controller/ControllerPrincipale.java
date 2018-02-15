@@ -60,7 +60,7 @@ public class ControllerPrincipale implements ActionListener, ListSelectionListen
 			case "operationBancaire" : {
 				ArrayList<Compte> listeComptes = gest.listerCompte();
 				vueOperation = new OperationDialog(vue, "Opération bancaire", false, listeComptes);
-				ControllerOperationBancaire controllerOperationBancaire = new ControllerOperationBancaire(vueOperation, gest);				
+				ControllerOperationBancaire controllerOperationBancaire = new ControllerOperationBancaire(vueOperation, gest);	
 				break;
 				
 			}
