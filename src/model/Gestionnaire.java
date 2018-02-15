@@ -2,9 +2,9 @@ package model;
 
 
 import java.util.*;
-
-import main.DemoApli;
 import view.ConsoleAffichage;
+import view.VuePrincipale;
+
 
 /**
  * this is the administrator of the customers
@@ -16,8 +16,9 @@ public class Gestionnaire extends Personne {
      */
     public Gestionnaire() {
     }
+    
     /**
-     * Constructor
+     * Constructor with his name
      */
     public Gestionnaire(String prenom) {
     	super(prenom);
@@ -26,6 +27,7 @@ public class Gestionnaire extends Personne {
     	super.setProfil("Gestionnaire");
     	this.liste = new Vector<Client>();    	
     }
+    
     /**
      * Contains a list of customers
      */
@@ -45,7 +47,6 @@ public class Gestionnaire extends Personne {
      * An identification
      */
     private static int compteurId = 0; 
-
 
     /**
      * List of all the accounts
@@ -69,7 +70,8 @@ public class Gestionnaire extends Personne {
     public ArrayList<Compte> listerCompte(String prenom) {
     	
         for(Client client : liste) {
-        	if(client.getPrenom().equals(prenom)) {
+        	
+        	if(client.getPrenom().equals(prenom)) {        		
         		return client.listerCompte();
         	}
         }
@@ -81,7 +83,9 @@ public class Gestionnaire extends Personne {
      * @param prenom, type du compte
      */
     public ArrayList<Compte> listerCompte(String prenom, TypeCompte type) {
+    	
         for(Client client : liste) {
+        	
         	if(client.getPrenom().equals(prenom)) {
         		return client.listerCompte(type);
         	}
@@ -93,14 +97,18 @@ public class Gestionnaire extends Personne {
      * @return the balance of the administrator
      */
     public Double consulterChiffreAffaire() {
+    	
     	this.setChiffreAffaire();
     	return this.chiffreAffaire;
     }
+    
     /**
      * Do the balance of the administrator
      */
 	public void setChiffreAffaire() {
+		
     	double res = 0.0;
+    	
         for(int i=0; i<this.liste.size(); i++) {
         	res += liste.get(i).getTresorerie();
         }        
@@ -121,11 +129,10 @@ public class Gestionnaire extends Personne {
     			break;
     		}
     	}
-    	// TODO Display in the IHM
+
     	// Check no duplicate element
 		if(test) {
-			ConsoleAffichage aff = new ConsoleAffichage();
-			aff.doublonClient();
+			VuePrincipale.afficherErreur("Client existant !");
 		}
 		 
 		else {
@@ -155,10 +162,11 @@ public class Gestionnaire extends Personne {
      * @return the customer
      */
     public Client trouverClient(String prenom) {
+    	
     	Client client = null;
     	
-    	for(Client clt : liste ) {
-    		if(clt.getPrenom().equals(prenom)) {
+    	for(Client clt : liste ) {    		
+    		if(clt.getPrenom().equals(prenom)) {    			
     			client = clt;
     			return client;
     		}
@@ -169,6 +177,7 @@ public class Gestionnaire extends Personne {
      * To show all account of a customer
      */
     public Client consulterPortefeuilleClient(String prenom) {
+    	
         for(Client client : liste) {
         	if(client.getPrenom().equals(prenom)) {
         		return client;
@@ -176,11 +185,13 @@ public class Gestionnaire extends Personne {
         }
         return null;
     }
+    
     /**
      * Sort account for balance
      * @return a list of account
      */
     public ArrayList<Compte> trierCompteSolde() {
+    	
     	ArrayList<Compte> listeAllComptes = listerCompte();
     	Collections.sort(listeAllComptes, new CompareSolde()); 
     	return listeAllComptes;   
@@ -196,9 +207,86 @@ public class Gestionnaire extends Personne {
     	return listeAllComptes;  
     }
 
+    /**
+     * Check if account exist
+     * @param numeroCompte
+     * @return
+     */
+    public boolean compteExiste(String numeroCompte) {
+    	
+    	ArrayList<Compte> listeAllCompte = listerCompte();
+    	boolean trouve = false;
+    	
+    	for(Compte compte : listeAllCompte) {
+        	if(compte.getNumCpte().equals(numeroCompte)) {
+    			trouve = true;
+    			break;
+        	}
+        	else {
+        		trouve = false;
+        	}
+    	}    	
+    	return trouve;
+    }
+
+    /**
+     * To credit an account
+     * @param numeroCompte
+     * @param montant
+     */
+    public void crediterCompte(String numeroCompte, double montant) {
+    	
+    	ArrayList<Compte> listeAllCompte = listerCompte();
+    	
+    	for(Compte compte : listeAllCompte) {
+        	if(compte.getNumCpte().equals(numeroCompte)) {        		
+    			double nouveauSolde = compte.getSolde() + montant;
+    			compte.setSolde(nouveauSolde);
+        	}
+    	}
+    }
+
+    /**
+     * To debit an acconut
+     * @param numeroCompte
+     * @param montant
+     * @return
+     */
+    public boolean debiterCompte(String numeroCompte, double montant) {
+    	ArrayList<Compte> listeAllCompte = listerCompte();
+    	boolean resultat = false;
+    	
+    	for(Compte compte : listeAllCompte) {
+        	if(compte.getNumCpte().equals(numeroCompte)) {
+        		
+        		if((compte.getSolde() - montant) <= -1000) {
+        			return false;
+        		}
+        		else {
+        			double nouveauSolde = compte.getSolde() - montant;
+        			compte.setSolde(nouveauSolde);
+        			return true;
+        		}
+        	}
+    	}
+    	return resultat;
+    }
     
 	public Integer getNumMat() {
 		return numMat;
+	}
+	
+	public Compte getCompte(String numeroCompte) {
+		
+    	ArrayList<Compte> listeAllCompte = listerCompte();
+    	Compte compte = null;
+    	
+    	for(Compte cpt : listeAllCompte) {
+        	if(cpt.getNumCpte().equals(numeroCompte)) {
+    			compte = cpt;    			
+        	}
+    	}
+    	return compte;
 	}
 
 	public void setNumMat(Integer numMat) {

@@ -3,37 +3,33 @@ package view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.GridLayout;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import controller.ControllerPrincipale;
-
 /**
- * This is the display's panel
+ * This is the panel on the left, this display the choices of the user
  * @author Workstation
  *
  */
 public class PanneauAffichage extends JPanel {
 	
-	private JList listeChoix;
+	private JList<String> listeChoix;
 	private JLabel titre = null;
 	private JLabel infoChoix = null;
 	private JButton bouton = null;
 
 	private static String[] ChoixUtilisateur = {"0 Fin session", "1 Lister client", "2 Lister compte d'un client", "3 CA gestionnaire"};
 	
+	/**
+	 * Constructor for initialize the left panel for the menu
+	 * @param font1
+	 * @param font2
+	 */
 	public PanneauAffichage(Font font1, Font font2) {
 	
 		this.setOpaque(false);
@@ -48,7 +44,7 @@ public class PanneauAffichage extends JPanel {
 		titre.setHorizontalAlignment(JLabel.CENTER);
 		
 		// Le JList	
-		listeChoix = new JList(ChoixUtilisateur);
+		listeChoix = new JList<String>(ChoixUtilisateur);
 		listeChoix.setOpaque(true);
 		listeChoix.setBorder(BorderFactory.createLineBorder(Color.WHITE));	
 		font2 = font2.deriveFont((float)15.0);
@@ -76,13 +72,23 @@ public class PanneauAffichage extends JPanel {
 	public void changerTitre(String str) {
 		this.titre.setText(str);
 	}
+	
 	public JLabel getTitre() {
 		return titre;
 	}
 	
+	/**
+	 * To listen the list of the menu
+	 * @param controllerPrincipale
+	 */
 	public void ecouterJList(ListSelectionListener controllerPrincipale) {
 		listeChoix.addListSelectionListener(controllerPrincipale);
 	}
+	
+	/**
+	 * To listen the button
+	 * @param controllerPrincipale
+	 */
 	public void ecouterBouton(ActionListener controllerPrincipale) {
 		bouton.addActionListener(controllerPrincipale);
 	}
@@ -93,10 +99,13 @@ public class PanneauAffichage extends JPanel {
 	public void setTitre(JLabel titre) {
 		this.titre = titre;
 	}
+	
+	/**
+	 * To display the choice of the user
+	 * @param choix
+	 */
 	public void afficherChoix(String choix) {
 		infoChoix.setText(choix);
 	}
 	
-	
-
 }

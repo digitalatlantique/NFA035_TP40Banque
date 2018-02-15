@@ -3,32 +3,27 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Vector;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import javax.swing.JComboBox;
-import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
-import model.Client;
 import model.Compte;
 import model.Gestionnaire;
+import view.OperationDialog;
 import view.VuePrincipale;
 
 /**
- * This main controller show the different options and get the choice of the user to display it 
+ * This main controller manage the different options and get the choice of the user to display it 
  * @author Workstation
  * @version 1.4 IHM and java doc
  * @since 1.1
  *
  */
-public class ControllerPrincipale implements ActionListener, ListSelectionListener{
+public class ControllerPrincipale implements ActionListener, ListSelectionListener {
 	
 	protected VuePrincipale vue;
 	protected Gestionnaire gest;
-	private boolean doCombo = true;
+	private static boolean doCombo = true;
+	OperationDialog vueOperation;
 	
 	/**
 	 * Default constructor
@@ -52,7 +47,7 @@ public class ControllerPrincipale implements ActionListener, ListSelectionListen
 	}	
 	
 	/**
-	 * the method controls the type and displays the choice of the user
+	 * the method controls the choice of the user at the MenuBar, ComboBox, Button "valider"
 	 * @param event
 	 */
 	public void actionPerformed(ActionEvent event){
@@ -61,6 +56,18 @@ public class ControllerPrincipale implements ActionListener, ListSelectionListen
 		
 		switch(itemSource) {
 		
+		// MenuBar
+			case "operationBancaire" : {
+				ArrayList<Compte> listeComptes = gest.listerCompte();
+				vueOperation = new OperationDialog(vue, "Opération bancaire", false, listeComptes);
+				ControllerOperationBancaire controllerOperationBancaire = new ControllerOperationBancaire(vueOperation, gest);				
+				break;
+				
+			}
+			case "porteFeuille" : {
+				vue.afficherPortefeuilleGestionnaire(gest.listerCompte(), gest);
+				break;
+			}			
 			case "quitter" : {
 				vue.afficherMessageFin();
 				System.exit(0);
@@ -70,25 +77,14 @@ public class ControllerPrincipale implements ActionListener, ListSelectionListen
 				vue.afficherListeClient(gest.listerClient());
 				break;
 			}
-			case "porteFeuille" : {
-				vue.afficherPortefeuilleGestionnaire(gest.listerCompte(), gest);
-				break;
-			}
 			case "compteClient" : {
 				if(doCombo) {
 					vue.afficherCombo(gest);
-					doCombo = false;
-					
+					doCombo = false;					
 				}
 				else {
 					vue.comboExiste();
 				}
-				break;
-			}
-			case "combo" : {
-				
-				String prenom = (String) ((JComboBox)event.getSource()).getSelectedItem();
-				vue.afficherCompteClient(gest.trouverClient(prenom), gest.listerCompte(prenom));
 				break;
 			}
 			case "prenom" : {
@@ -99,6 +95,16 @@ public class ControllerPrincipale implements ActionListener, ListSelectionListen
 				vue.afficherListeCompte(gest.trierCompteSolde());
 				break;
 			}
+			
+		// ComboBox
+			case "combo" : {
+				
+				String prenom = (String) ((JComboBox)event.getSource()).getSelectedItem();
+				vue.afficherCompteClient(gest.trouverClient(prenom), gest.listerCompte(prenom));
+				break;
+			}
+
+		// Button at the PanneauAffichage
 			case "bouton" : {
 				int choixUser = vue.getListeMenu().getSelectedIndex();
 				
@@ -116,8 +122,7 @@ public class ControllerPrincipale implements ActionListener, ListSelectionListen
 					case 2 : {
 						if(doCombo) {
 							vue.afficherCombo(gest);
-							doCombo = false;
-							
+							doCombo = false;							
 						}
 						else {
 							vue.comboExiste();
@@ -132,35 +137,14 @@ public class ControllerPrincipale implements ActionListener, ListSelectionListen
 			}
 		}	
 	}
-	
+	/**
+	 * Display the choice of the user in the comboBox
+	 */
 	@Override
 	public void valueChanged(ListSelectionEvent arg0) {
 		
 		vue.afficherChoix((String) (vue.getListeMenu().getSelectedValue()));
 		
 	}
-	/**
-	 * To check if the type is an integer
-	 * @param var
-	 * @return
-	 */
-    public boolean CheckInt(String var) {			
-    	 
-		Pattern pattern = Pattern.compile("[0-4]");
-		Matcher matcher = pattern.matcher(var);
-		boolean resultat = matcher.matches();
-		return resultat;    	
-    }
-
-    /**
-     * To check if the type is a character string
-     */
-    public boolean CheckString(String var) {
-		Pattern pattern = Pattern.compile("[a-zA-Z]+");
-		Matcher matcher = pattern.matcher(var);
-		boolean resultat = matcher.matches();
-		return resultat;
-    }
-
 
 }

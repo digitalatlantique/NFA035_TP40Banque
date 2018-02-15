@@ -36,16 +36,13 @@ public class DemoApli {
 	
 	public static VuePrincipale vue; 
 		 
-	public static void main(String[] args) throws InvocationTargetException, InterruptedException {
-						
+	public static void main(String[] args) throws InvocationTargetException, InterruptedException {		
+								
 		// Création du gestionnaire
 		Gestionnaire gest = new Gestionnaire("Rotchild");	
 		
 		// Récupération data
 		String[] tab = extractData();
-		
-		// Création des clients avec les datas
-		initialisationClient(tab, gest);
 		
         SwingUtilities.invokeAndWait(new Runnable() {
             public void run() {
@@ -53,10 +50,10 @@ public class DemoApli {
             }
           });
 		
+		// Création des clients avec les datas
+		initialisationClient(tab, gest);
+		
 		ControllerPrincipale controllerPrincipale = new ControllerPrincipale(vue, gest);
-		
-		
-
 	}	
 	
 	/**
@@ -140,8 +137,8 @@ public class DemoApli {
     			choixType = TypeCompte.PEL;
     		}
     		// Create account(s)
-    		client.creerCompte(choixType, DemoApli.genererNbrDouble(-1000.0, 100000.0));
-    
+    		Compte compte = client.creerCompte(choixType, DemoApli.genererNbrDouble(-1000.0, 100000.0));
+    		compte.addObserver(DemoApli.vue);
     	}
 	}
 	

@@ -1,19 +1,21 @@
 package model;
 
+import java.util.Observable;
+
 import main.DemoApli;
 
 /**
  * This is an account of the customer. The account is made of an identification, a first name, a type and the balance 
+ * When the balance change, the observers are notified
  * @author Win7
  *
  */
-public class Compte {
+public class Compte extends Observable {
 	
 	private String numCpte;
 	private String prenom;
 	private TypeCompte type;
 	private Double solde;
-	
 	/**
 	 * Default constructor
 	 */
@@ -22,7 +24,7 @@ public class Compte {
 	}
 	
 	/**
-	 * Constructor
+	 * Constructor with the name of the customer, the type and the balance
 	 * Initialize with the first name, the kind of account, the initial balance
 	 * @param prenom
 	 * @param type
@@ -50,8 +52,15 @@ public class Compte {
 	public Double getSolde() {
 		return solde;
 	}
+	
+	/**
+	 * Notify all observer when the balance change
+	 * @param solde
+	 */
 	public void setSolde(Double solde) {
 		this.solde = solde;
+		this.setChanged();
+		this.notifyObservers();
 	}
 	public String toString() {
 		String str = "------------------------------------------------\n"

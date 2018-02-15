@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Vector;
 import java.util.Iterator;
+import java.util.Observable;
+import java.util.Observer;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
@@ -50,7 +52,7 @@ import model.Gestionnaire;
  * @author Workstation
  *
  */
-public class VuePrincipale extends JFrame{
+public class VuePrincipale extends JFrame implements Observer{
 
 	private JPanel panPrincipal = null;
 	private JPanel panLogo = null;
@@ -289,7 +291,8 @@ public class VuePrincipale extends JFrame{
 	 * Check if the JComboBox exist
 	 */
 	public void comboExiste() {
-		panAffichage.changerTitre("Information");		
+		panAffichage.changerTitre("Information");
+		afficherChoix("Selectionner un client ");
 	}
 	
 	/**
@@ -309,36 +312,32 @@ public class VuePrincipale extends JFrame{
 		panAffichage.afficherChoix(choix);		
 	}
 	
-	// TODO Adapt with the new display 
-	/**
-	 * Display the first name selected
-	 * @deprecated
-	 */
-	public void afficherSaisiePrenom() {
-		this.field.setText("");
-		panSaisie.remove(bouton1);
-		bouton2 = new MonBouton();
-		panSaisie.add(bouton2, BorderLayout.SOUTH);
-		label.setText("Saisir un prénom :");
-	}
-	
-	// TODO Adapt with the new display 
 	/**
 	 * Display an key in error
-	 * @deprecated
+	 * 
 	 */
-	public void afficherErreurMenu() {
-		label.setForeground(Color.RED);
-		label.setText("Saisie incorrect !!");
+	public static void afficherErreur(String message) {
+		JOptionPane optionPane = new JOptionPane();
+		optionPane.showMessageDialog(null, message, "Erreur", JOptionPane.ERROR_MESSAGE);
 	}
 	
-	// TODO Adapt with the new display 
-	/**
-	 * Display the label of the key in
-	 * @deprecated
-	 */
-	public void afficherLabel() {
-		label.setForeground(Color.BLACK);
-		label.setText("Saisir votre choix :");	
+	public static void afficherConfirme(String message) {
+		JOptionPane optionPane = new JOptionPane();
+		optionPane.showMessageDialog(null, message, "Confirmation", JOptionPane.INFORMATION_MESSAGE);
 	}
+
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+
+		afficherChoix("Nouveau solde ");
+	
+		Compte compte = (Compte) arg0;
+		ArrayList<Compte> compteListe = new ArrayList();
+		compteListe.add(compte);
+		
+		this.afficherListeCompte(compteListe);
+		
+	}
+
 }

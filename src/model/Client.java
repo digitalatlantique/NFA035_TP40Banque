@@ -1,12 +1,12 @@
 package model;
 
-
 import java.util.ArrayList;
 
 import main.DemoApli;
+import view.VuePrincipale;
 
 /**
- * 
+ * This is a custumer of the bank
  */
 public class Client extends Personne {
 
@@ -15,8 +15,9 @@ public class Client extends Personne {
      */
     public Client() {
     }
+    
     /**
-     * Constructor
+     * Constructor with first name, genre, age, administrator
      */
     public Client(String prenom,int age, Genre genre, Gestionnaire gest) {
     	super(prenom);
@@ -63,9 +64,11 @@ public class Client extends Personne {
      * To create an account
      * @param type is the kind of account
      */    
-    public void creerCompte(TypeCompte type, Double solde) {
+    public Compte creerCompte(TypeCompte type, Double solde) {
+    	
     	Compte cpt = new Compte(this, type, solde);
-    	mesComptes.add(cpt);    	
+    	mesComptes.add(cpt);
+    	return cpt;
     }
     
     /**
@@ -76,7 +79,7 @@ public class Client extends Personne {
     }
     
     /**
-     * Return a kind of account
+     * Return a list of account
      * @param TypeCompte
      */
     public ArrayList<Compte> listerCompte(TypeCompte type) {
@@ -92,17 +95,44 @@ public class Client extends Personne {
     	
     
     /**
-     * 
+     * To credit this account
      */
-    public void crediter() {
-        // TODO implement here
+    public void crediter(String numéroCompte, double montant) {
+        for(Compte compte : mesComptes) {
+        	if(compte.getNumCpte().equals(numéroCompte)) {
+        		
+    			double nouveauSolde = compte.getSolde() + montant;
+    			compte.setSolde(nouveauSolde);        		     	
+        	}
+        	else {
+        		System.out.println("Compte inconnu");
+        	}
+        }
     }
 
     /**
-     * 
+     * To dedit the account
      */
-    public void debiter() {
-        // TODO implement here
+    public void debiter(String numéroCompte, double montant) {
+    	
+        for(Compte compte : mesComptes) {
+        	
+        	// check the identification of the account
+        	if(compte.getNumCpte().equals(numéroCompte)) {
+        		
+        		// check the balance of the account
+        		if(compte.getSolde() - montant <= -1000) {
+        			double nouveauSolde = compte.getSolde() + montant;
+        			compte.setSolde(nouveauSolde);
+        		}
+        		else {
+        			VuePrincipale.afficherErreur("Solde insuffisant !");
+        		}       	
+        	}
+        	else {
+        		VuePrincipale.afficherErreur("Compte inexistant !");
+        	}
+        }
     }
 
     /**
