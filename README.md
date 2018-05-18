@@ -7,8 +7,7 @@ Objectif : Réaliser une application simulant les opérations de gestion de compte
 Java Runtime Environment : JRE 9.0.1
 
 Disponible dans ce projet :
-
--un executable => Banque.jar
--un diagramme de classe => assets/ClassDiagram.jpg
--une documentation => javaDoc (dossier)
--Les sources
+- un executable => Banque.jar
+- un diagramme de classe => assets/ClassDiagram.jpg
+- une documentation => javaDoc (dossier)
+- Les sources
