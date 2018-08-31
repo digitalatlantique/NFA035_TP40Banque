@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.SwingUtilities;
@@ -28,15 +29,18 @@ import view.VuePrincipale;
  */
 public class DemoApli {	
 	
-	public static VuePrincipale vue; 
+	public static VuePrincipale vue;
+	private static DemoApli demoApli;
 		 
-	public static void main(String[] args) throws InvocationTargetException, InterruptedException {		
+	public static void main(String[] args) throws InvocationTargetException, InterruptedException {	
+		
+		demoApli = new DemoApli();
 								
 		// Création du gestionnaire
 		Gestionnaire gest = new Gestionnaire("Rotchild");	
 		
 		// Récupération data
-		String[] tab = extractData();
+		String[] tab = demoApli.extractData();
 		
         SwingUtilities.invokeAndWait(new Runnable() {
             public void run() {
@@ -45,7 +49,7 @@ public class DemoApli {
           });
 		
 		// Création des clients avec les datas
-		initialisationClient(tab, gest);
+        demoApli.initialisationClient(tab, gest);
 		
 		ControllerPrincipale controllerPrincipale = new ControllerPrincipale(vue, gest);
 	}	
@@ -54,16 +58,17 @@ public class DemoApli {
 	 * Extract data to file
 	 * @return an array String with the property of customers
 	 */
-	public static String[] extractData() {
+	public String[] extractData() {
 		// Chemin file
-		String pathname = "./assets";
-		String fileName = "/bankCustomers.txt";
-		File fn = new File(pathname + fileName);		
+		String pathname = "/data";
+		String fileName = "/bankCustomers.txt";		
 		String contenu = "";
 		
 		try {
-			FileReader fr = new FileReader(fn);
-			BufferedReader br = new BufferedReader(fr);
+			
+			//FileReader fr = new FileReader(fn);
+			InputStreamReader isr = new InputStreamReader(this.getClass().getResourceAsStream(pathname + fileName));
+			BufferedReader br = new BufferedReader(isr);
 			
 			String tmp;
 			while ((tmp = br.readLine()) != null) {
@@ -72,7 +77,7 @@ public class DemoApli {
 			}
 			
 			br.close();
-			fr.close();
+			isr.close();
 		} 
 		catch (FileNotFoundException e) {
 		e.printStackTrace();
@@ -90,7 +95,7 @@ public class DemoApli {
 	 * @param tab, contains the data customers to initialize this application
 	 * @param gest is the administrator of the customers, he has all accounts of his customers
 	 */
-	public static void initialisationClient(String[] tab, Gestionnaire gest) {
+	public void initialisationClient(String[] tab, Gestionnaire gest) {
 		Client client = null;
 		for(int i=0; i<tab.length; i++) {
 			
@@ -115,12 +120,12 @@ public class DemoApli {
 	 * @param client to add his accounts
 	 * @param nbreCompte to define the number of accounts
 	 */
-	public static void creerCompteAleatoire(Client client, int nbreCompte) {
+	public void creerCompteAleatoire(Client client, int nbreCompte) {
     	// Create randomly account(s)
     	for(int i=0; i<nbreCompte; i++) {
     		// Choice which type of account
     		TypeCompte choixType;
-    		int nbre = DemoApli.genererNbrInt(0, 2);
+    		int nbre = demoApli.genererNbrInt(0, 2);
     		if(nbre == 0) {
     			choixType = TypeCompte.Courant;
     		}
@@ -131,7 +136,7 @@ public class DemoApli {
     			choixType = TypeCompte.PEL;
     		}
     		// Create account(s)
-    		Compte compte = client.creerCompte(choixType, DemoApli.genererNbrDouble(-1000.0, 100000.0));
+    		Compte compte = client.creerCompte(choixType, demoApli.genererNbrDouble(-1000.0, 100000.0));
     		compte.addObserver(DemoApli.vue);
     	}
 	}
@@ -195,7 +200,7 @@ public class DemoApli {
 	 * @param max
 	 * @return A number randomly
 	 */
-	public static int genererNbrInt(int min, int max) {		
+	public int genererNbrInt(int min, int max) {		
 		
 		int nbr = (int) ((Math.random() * (max - min)) + min);		
 		return nbr;
@@ -206,7 +211,7 @@ public class DemoApli {
 	 * @param max
 	 * @return A real number randomly
 	 */
-	public static Double genererNbrDouble(Double min, Double max) {	
+	public Double genererNbrDouble(Double min, Double max) {	
 		double delta = max - min + 1;
 		double resultat = Math.random() * (delta);
 		resultat += min;

@@ -9,6 +9,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -34,7 +35,7 @@ public class PanneauCentral extends JPanel {
 	private JTable table = null;
 	private JScrollPane sp = null;
 	private Font font = null;	
-	private String path1 = "./assets/polices/Dustismo_Roman-webfont.ttf";
+	private String path1 = "/data/polices/Dustismo_Roman-webfont.ttf";
 	private JList list1 = null;
 	private JList list2 = null;
 	
@@ -50,8 +51,8 @@ public class PanneauCentral extends JPanel {
 		this.setLayout(new BorderLayout());
 		
 		try {			
-			File fis2 = new File(path1);
-			this.font = Font.createFont(Font.PLAIN, fis2);
+			InputStream is1 = this.getClass().getResourceAsStream(path1);
+			this.font = Font.createFont(Font.PLAIN, is1);
 		}
 		catch(IOException | FontFormatException e) {
 			e.printStackTrace();
@@ -69,8 +70,8 @@ public class PanneauCentral extends JPanel {
 		this.table = table;
 		
 		try {			
-			File fis2 = new File(path1);
-			this.font = Font.createFont(Font.PLAIN, fis2);
+			InputStream is1 = this.getClass().getResourceAsStream(path1);
+			this.font = Font.createFont(Font.PLAIN, is1);
 		}
 		catch(IOException | FontFormatException e) {
 			e.printStackTrace();
@@ -93,8 +94,8 @@ public class PanneauCentral extends JPanel {
 		this.table = table;
 		
 		try {			
-			File fis2 = new File(path1);
-			this.font = Font.createFont(Font.PLAIN, fis2);
+			InputStream is1 = this.getClass().getResourceAsStream(path1);
+			this.font = Font.createFont(Font.PLAIN, is1);
 		}
 		catch(IOException | FontFormatException e) {
 			e.printStackTrace();

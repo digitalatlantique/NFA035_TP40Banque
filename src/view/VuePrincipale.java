@@ -13,6 +13,7 @@ import java.awt.TextField;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Vector;
 import java.util.Iterator;
@@ -69,8 +70,8 @@ public class VuePrincipale extends JFrame implements Observer{
 	private Font font1 = null;
 	private Font font2 = null;
 
-	private String path1 = "./assets/polices/Dustismo_Roman-webfont.ttf";
-	private String path2 = "./assets/polices/CaviarDreams-webfont.ttf";	
+	private String path1 = "/data/polices/Dustismo_Roman-webfont.ttf";
+	private String path2 = "/data/polices/CaviarDreams-webfont.ttf";	
 
 	
 	/**
@@ -86,10 +87,11 @@ public class VuePrincipale extends JFrame implements Observer{
 		this.setResizable(false);
 		
 		try {			
-			File fis1 = new File(path1);
-			this.font1 = Font.createFont(Font.PLAIN, fis1);
-			File fis2 = new File(path2);
-			this.font2 = Font.createFont(Font.PLAIN, fis2);
+			InputStream is1 = this.getClass().getResourceAsStream(path1);
+			InputStream is2 = this.getClass().getResourceAsStream(path2);
+			
+			this.font1 = Font.createFont(Font.PLAIN, is1);			
+			this.font2 = Font.createFont(Font.PLAIN, is2);
 		}
 		catch(IOException | FontFormatException e) {
 			e.printStackTrace();
