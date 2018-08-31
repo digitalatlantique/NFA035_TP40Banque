@@ -64,9 +64,8 @@ public class DemoApli {
 		String fileName = "/bankCustomers.txt";		
 		String contenu = "";
 		
-		try {
+		try {			
 			
-			//FileReader fr = new FileReader(fn);
 			InputStreamReader isr = new InputStreamReader(this.getClass().getResourceAsStream(pathname + fileName));
 			BufferedReader br = new BufferedReader(isr);
 			
